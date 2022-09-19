@@ -16,7 +16,11 @@ Informações sobre o que será criado como solução tecnológica ao final do p
 
 ## Equipe
 
- - [Nome do desenvolvedor #1](url-do-github-do-desenvolvedor-#1)
- - [Nome do desenvolvedor #2](url-do-github-do-desenvolvedor-#2)
- - [Nome do desenvolvedor #3](url-do-github-do-desenvolvedor-#3)
- - [Nome do desenvolvedor #4](url-do-github-do-desenvolvedor-#4)
+ - [Bárbara da Silva Oliveira](https://github.com/barbaraoliveira1415)
+ - [Carlos André de Sousa Monteiro](https://github.com/CarlosAndre1977)
+ - [Carlos Augusto Melo de Pinho](https://github.com/augustocarrlos10)
+ - [Hugo Silveira Sousa](https://github.com/hugosousa111)
+ - [Larissa Araújo Barbosa](https://github.com/Larissaab)
+ - [Luiz Henrique Medeiros de Souza](https://github.com/Luizrev)
+ - [Matheus Amorim Constancio](https://github.com/math-ac)
+ - [Rafael Galdino da Silva](https://github.com/rafaelsilva81)
