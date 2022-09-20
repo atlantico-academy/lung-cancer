@@ -2,22 +2,22 @@
 
 ## Contextualização
 
-Sendo uma das doenças malignas que mais afeta a população, o cancer de pulmao é
+Sendo uma das doenças malignas que mais afeta a população, o câncer de pulmão é
 caracterizado por um crescimento desordenado das células do tecido pulmonar, dando
-origem a um tumor. A presença do tumor pode comprometer os tecidos proximos, ocasionando a
-destruição dos mesmo, caso o tumor seja maligno. Além disso, é possível que as células tumorais se alastrem pelo corpo, podendo afetar os demais orgãos.
+origem a um tumor. A presença do tumor pode comprometer os tecidos próximos, ocasionando na
+destruição dos mesmo, caso o tumor seja maligno. Além disso, é possível que as células tumorais se alastrem pelo corpo, afetandoos demais orgãos.
 
-O cancer de pulmao pode ser associado a alguns fatores como geneticos, ambientais e comportamentais. A fator genetico está relacionado ao historico familiar do individuo, onde o mesmo possui uma predisposição para a doença. Quantos aos fatores ambientais, o desenvolvimento da doença está ligado ao ambiente ao qual o individuo está exposto, um exemplo sendo os mineradores, que normal estão expostos ao amianto, aumentado o risco da doença.
+O câncer pulmonar pode ser associado a alguns fatores como genéticos, ambientais e comportamentais. O fator genético está relacionado ao histórico familiar do indivíduo, onde o mesmo possui uma predisposição para a doença caso a familía tenha registros da doença. Quantos aos fatores ambientais, o desenvolvimento da doença está ligado ao ambiente ao qual o indivíduo está exposto, um exemplo sendo os mineradores, que normalmente estão expostos ao amianto, aumentado o risco de desnvolvimento da doença. Em relação aos fatores comportamentais, o tabagismo é o principal causador de câncer pulmonar, sendo relacionado a 85% dos casos da doença. Além disso, o tabagismo pode afetar os indivíduos expostos a fumaça do tabaco, caracterizando o fumo passivo, que também pode resultar na no desenvolvimento da doença.
 
-Em relação aos fatores comportamentais, o tabagismo é o principal causador de cancer de pulmonar, sendo relacionado a 85% dos casos da doença. Além disso, o tabagismo pode afetar os individuos expostos a fumaça do tabaco, caracterizando o fumo passivo, que também pode resultar na formação de tumores do cancer.
+
 
 ## Problema
 
-Atualmente, o diagnostico do cancer pode ser realizado de duas maneira: exame de imagem e a biópsia, que geralmente são exames caros e que podem ser invasivos, como no caso da biopsia. Por conta disso, se torna relevante a criação de um método alternativo de baixo custo para a analise da predisposição que um individuo possui.
+Atualmente, o diagnóstico do câncer pode ser realizado de algumas maneiras, as duas principais sendo o exame de imagem e a biópsia, que geralmente são métodos caros e que podem ser invasivos, como no caso da biópsia. Por conta disso, se torna relevante a criação de um método auxiliar de baixo custo para a análise da predisposição que um individuo possui, afim de fornecer um auxílio na tomada de decisão médica.
 
 ## Proposta
 
-A solução proposta se baseia no conjunto de dados [Lung Cancer](https://www.kaggle.com/datasets/nancyalaswad90/lung-cancer) para a construção de um modelo de aprendizado de máquina, com foco na analise da predisposição de um individuo. Adicionalmente, será realizada uma analise exploratoria dos dados, abordando o perfil das amostras.
+A solução proposta se baseia no conjunto de dados para a construção de uma aplicação que receberá como entrada um conjunto de características relacionadas aos fatores já mencionados e entregará como saída, um score de probabilidade do indivíduo ter ou não câncer. Tal aplicação será baseada em um modelo de aprendizado de máquina. Adicionalmente, será realizada uma análise exploratória dos dados, bem como uma análise comparativa de modelos utilizando o conjunto de dados [Lung Cancer](https://www.kaggle.com/datasets/nancyalaswad90/lung-cancer).
 
 ## Equipe
 
