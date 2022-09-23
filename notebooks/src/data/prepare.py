@@ -14,5 +14,7 @@ def group_separation(row):
     if row.Variavel in ['SMOKING','YELLOW_FINGERS','ANXIETY','PEER_PRESSURE','CHRONIC DISEASE','FATIGUE','ALLERGY','WHEEZING','ALCOHOL CONSUMING',
     'COUGHING','SHORTNESS OF BREATH','SWALLOWING DIFFICULTY','CHEST PAIN']:
         return 'Sintoma'
+    elif row.Variavel == 'LUNG_CANCER':
+        return ''
     else:
         return 'Identificação'
