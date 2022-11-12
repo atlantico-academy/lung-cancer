@@ -1,14 +1,20 @@
 import streamlit as st
 from joblib import load
+from pathlib import Path
 import pandas as pd
+import math
+import plotly.graph_objects as go
 
-#model = load('models/model.joblib')
+model = load(Path('models/model.joblib'))
 convert = lambda x: 'Sim' if x == 2 else 'Não'
-#st.title("Olá")
-#if st.button("mundo!"):
-    #st.balloons()
+#st.set_page_config(layout="wide")
 
-    
+
+st.markdown('# LungHealth')
+st.markdown('### Cálculo de probabilidade de câncer pulmonar')
+st.markdown('Responda esse breve formulário para que possa ser realizado um cálculo da sua probabilidade de câncer pulmonar, **seja sincero** para obter o melhor resultado possível.')
+st.markdown('---')
+
 entrada = {}
 col1,col2 = st.columns(2)
 
@@ -16,114 +22,95 @@ entrada['GENDER'] = col1.selectbox(
     'Qual seu genero?',
     ('M', 'F'))
 
-entrada['AGE'] = col2.slider('Insira sua idade',min_value=18, max_value=100)
-#st.write('Idade = ', int(idade))
+entrada['AGE'] = col2.number_input('Idade',min_value=1, max_value=100, value=18, step=1, help='Insira sua idade')
 
-#st.write('You selected:', genero)
+col1,col2,col3 = st.columns(3)
 
-# fumante = st.checkbox('Você é fumante', value=True, on_change=(lambda x: 0 if x else 1), disabled=False)
-# st.write(fumante)
+col1.markdown('##### Estilo de vida')
+col2.markdown('##### Sintomas')
+col3.markdown('##### Enfermidades/Disturbios')
 
-entrada['SMOKING'] = st.selectbox(
-    'Você é fumante?',
-    (2, 1),format_func=convert)
-#st.write(fumante)
-#st.write('You selected:', fumante)
+entrada['SMOKING'] = 2 if col1.checkbox('Fumante?', value=False, disabled=False, help='O fumante ativo é quem inala a fumaça do cigarro de maneira direta') else 1
 
-entrada['YELLOW_FINGERS'] = st.selectbox(
-    'Você suas extremidades do corpo amareladas?',
-    (2, 1),format_func=convert)
+entrada['YELLOW_FINGERS'] = 2 if col2.checkbox('Dedo/mão amarelada?', value=False, disabled=False, help='Se você possui dedos da mão, do pé, ou outras extremidades do corpo amareladas') else 1
 
-#st.write('You selected:', yefing)
+entrada['ANXIETY'] = 2 if col3.checkbox('Ansiedade?', value=False, disabled=False, help='Emoção caracterizada por um estado desagradável de agitação interior, muitas vezes acompanhada de comportamento nervoso, como o de se embalar de trás para a frente') else 1
 
-entrada['ANXIETY'] = st.selectbox(
-    'Você apresenta sinais de transtorno de ansiedade?',
-    (2, 1),format_func=convert)
+entrada['PEER_PRESSURE'] = 2 if col1.checkbox('Pressão grupal?', value=False, disabled=False, help='Você foi e/ou é influenciado por amigos para fumar, beber, etc...') else 1
 
-#st.write('You selected:', ansiedade)
+entrada['CHRONIC DISEASE'] = 2 if col3.checkbox('Doença Crônica?', value=False, disabled=False, help='Você possui alguma comorbidade cronica?') else 1
 
-entrada['PEER_PRESURE'] = st.selectbox(
-    'Por volta da adolescencia, você foi influenciado a fumar?',
-    (2, 1),format_func=convert)
+entrada['FATIGUE'] = 2 if col2.checkbox('Fadiga?', value=False, disabled=False, help='A sensação de exaustão durante ou após as atividades cotidianas, com sensação de falta de energia') else 1
 
-#st.write('You selected:', pressao)
+entrada['ALLERGY'] = 2 if col3.checkbox('Alergia?', value=False, disabled=False, help='Você possui alguma alergia?') else 1
 
-entrada['CHRONIC DISEASE'] = st.selectbox(
-    'Você possui alguma comorbidade cronica?',
-    (2, 1),format_func=convert)
+entrada['WHEEZING'] = 2 if col2.checkbox('Pieira?', value=False, disabled=False, help='Som característico, rouco e abafado, provocado pela respiração difícil dos asmáticos e outros doentes do aparelho respiratório.') else 1
 
-#st.write('You selected:', comorbidade)
+entrada['ALCOHOL CONSUMING'] = 2 if col1.checkbox('Consumo alcoólico?', value=False, disabled=False, help='Você consome alcool frequentemente?') else 1
 
-entrada['FATIGUE'] = st.selectbox(
-    'Você apresenta sinais de cansasso frequentes?',
-    (2, 1),format_func=convert)
+entrada['COUGHING'] = 2 if col2.checkbox('Tosse?', value=False, disabled=False, help='Costuma tossir com frequência?') else 1
 
-#st.write('You selected:', fadiga)
+entrada['SHORTNESS OF BREATH'] = 2 if col3.checkbox('Falta de ar?', value=False, disabled=False, help='A falta de ar é caracterizada pelo desconforto ou dificuldade para respirar') else 1
 
-entrada['ALLERGY'] = st.selectbox(
-    'Você possui alergia a fumaça do cigarro?',
-    (2, 1),format_func=convert)
+entrada['SWALLOWING DIFFICULTY'] = 2 if col3.checkbox('Disfagia?', value=False, disabled=False, help='Dificuldade de engolir alimentos e líquidos, a percepção de “arranhar”, ou ficar “presa” a comida ou bebida na passagem da garganta') else 1
 
-#st.write('You selected:', alergia)
+entrada['CHEST PAIN'] = 2 if col2.checkbox('Dor torácica?', value=False, disabled=False, help='Sensação de dor ou desconforto , localizada na região anterior do tórax (peito)') else 1
 
-entrada['WHEEZING'] = st.selectbox(
-    'Você apresenta um chiado no pulmão?',
-    (2, 1),format_func=convert)
+st.markdown('---')
+st.markdown('OBS: Essa aplicação usa aprendizado de máquina para prover um resultado, mas se você acredita que realmente possui câncer pulmonar, independente do resultado desse teste, **CONSULTE UM MÉDICO.**')
 
-#st.write('You selected:', chiado)
+def generate_gradient():
+    gradient = ["#fffd80","#fff87e", "#fef47d", "#feef7b", "#fdea7a", "#fde578", "#fde177","#fcdc75", "#fcd774", "#fbd272", "#fbce71", "#fac96f", "#fac46e", "#fabf6c","#f9bb6a","#f9b669","#f8b167","#f8ac66","#f8a864","#f7a363", "#f79e61", "#f69960", "#f6955e", "#f6905d", "#f58b5b", "#f5865a", "#f48258","#f47d56","#f47855","#f37353","#f36f52","#f26a50","#f2654f","#f1604d","#f15c4c","#f1574a","#f05249","#f04d47", "#ef4946","#ef4444"]
+    step = 100/len(gradient)
+    res = []
+    i = 0
+    for i in range(len(gradient)):
+        start = i*step
+        end = start + step
+        res.append({
+            'range': [start, end],
+            'color': gradient[i]
+        })
+    #st.write(res)
+    return res
 
-entrada['ALCOHOL CONSUMING'] = st.selectbox(
-    'Você consome alcool frequente?',
-    (2, 1),format_func=convert)
+if st.button("CALCULAR RESULTADOS", type="secondary"):
 
-#st.write('You selected:', alcool)
+    x = pd.DataFrame({key: [value] for key, value in entrada.items()})
 
-entrada['COUCHING'] = st.selectbox(
-    'Você apresenta tosse frequente?',
-    (2, 1),format_func=convert)
+    resultado = model.predict_proba(x)
+    probability = resultado[0][1] * 100
 
-#st.write('You selected:', tosse)
 
-entrada['SHORTNESS OF BREATH'] = st.selectbox(
-    'Você possui respiração curta?',
-    (2, 1),format_func=convert)
+    fig = go.Figure(go.Indicator(
+        mode = "gauge+number",
+        value = probability,
+        number = {"suffix": "%"},
+        domain = {'x': [0, 1], 'y': [0, 1]},
+        title = {'text': "Probabilidade de câncer pulmonar", 'font': {'size': 20}},
+        gauge = {
+            'axis': {'range': [0, 100], 'tickwidth': 1, 'tickcolor': "#171717"},
+            'bar': {'color': "#171717", 'thickness': 0.6},
+            'bgcolor': "#e5e5e5",
+            'borderwidth': 4,
+            'bordercolor': "#f5f5f5",
+            'steps': 
+                generate_gradient()
+        }))
 
-#st.write('You selected:', respcurta)
+    fig.update_layout(font = {'color': "#f5f5f5", 'family': "Arial"})
 
-entrada['SWALLOWING DIFFICULTY'] = st.selectbox(
-    'Você posui alguma dificuldade para ingerir alimentos sólidos ou liquidos?',
-    (2, 1),format_func=convert)
+    st.write(fig)
 
-#st.write('You selected:', difengolir)
-
-entrada['CHEST PAIN'] = st.selectbox(
-    'Você apresenta dor no peito?',
-    (2, 1),format_func=convert)
-
-#st.write('You selected:', dorpeito)
-st.write(entrada)
-
-# entrada.append(genero)
-# entrada.append(idade)
-# entrada.append(fumante)
-# entrada.append(yefing)
-# entrada.append(ansiedade)
-# entrada.append(pressao)
-# entrada.append(comorbidade)
-# entrada.append(fadiga)
-# entrada.append(alergia)
-# entrada.append(chiado)
-# entrada.append(alcool)
-# entrada.append(tosse)
-# entrada.append(respcurta)
-# entrada.append(difengolir)
-# entrada.append(dorpeito)
-
-x = pd.DataFrame.from_dict(entrada,orient='index')
-st.write(type(x))
-x.to_csv('print.csv')
-#resultado = model.predict(x)
-#st.write(resultado)
+    if probability <= 20:
+        st.success('Suas chances de contrair câncer pulmonar são mínimas, não precisa se preocupar!')
+    elif probability >= 80:
+        st.error('Você possui chance alta de contrair câncer de pulmão. Se possível busque um médico')
+    else:
+        st.info('Você provavelmente não precisa se preocupar, mas caso possua algum sitoma grave e continue suspeitando da possibiidade, busque um médico.')
+        
+        
+        
 #st.write(entrada)
 
 #st.write(type(entrada))
