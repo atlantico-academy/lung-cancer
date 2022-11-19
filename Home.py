@@ -14,7 +14,6 @@ def custom_checkbox(label, info, column):
 
 # função auxiliar para criar um gradiente que combina com as cores do streamlit (dark)
 def generate_gradient():
-    #gradient = ["#fffd80","#fff87e", "#fef47d", "#feef7b", "#fdea7a", "#fde578", "#fde177","#fcdc75", "#fcd774", "#fbd272", "#fbce71", "#fac96f", "#fac46e", "#fabf6c","#f9bb6a","#f9b669","#f8b167","#f8ac66","#f8a864","#f7a363", "#f79e61", "#f69960", "#f6955e", "#f6905d", "#f58b5b", "#f5865a", "#f48258","#f47d56","#f47855","#f37353","#f36f52","#f26a50","#f2654f","#f1604d","#f15c4c","#f1574a","#f05249","#f04d47", "#ef4946","#ef4444"]
     gradient = ["#06b6d4", "#00b4d7", "#00b3d9", "#00b1dc", "#00afde", "#00ade1", "#00abe3", "#00a9e5", "#00a7e7", "#00a5e8", "#11a2ea", "#22a0eb", "#2f9deb", "#3b9bec", "#4598ec", "#4f95ec", "#5992eb", "#628fea", "#6b8be9", "#7388e7", "#7c84e5", "#8481e2", "#8c7de0", "#9379dc", "#9a74d8", "#a170d4", "#a86cd0", "#ae67cb", "#b462c5", "#ba5dc0", "#bf58ba", "#c453b3", "#c84ead", "#cc49a6", "#d0439e", "#d33e97", "#d6388f", "#d83287", "#da2d7f", "#db2777"]
     step = 100/len(gradient)
     res = []
@@ -88,6 +87,8 @@ def main():
 
     # observações
     st.markdown('###### OBS: Essa aplicação usa aprendizado de máquina para prover um resultado, mas se você acredita que realmente possui câncer pulmonar, independente do resultado desse teste, **CONSULTE UM MÉDICO.**')
+    st.markdown('Para mais informações acesse o site do [INCA](https://www.gov.br/inca/pt-br/assuntos/cancer/tipos/pulmao).')
+
 
     # botão de submit
     if st.button("CALCULAR RESULTADOS", type="secondary"):
@@ -124,6 +125,6 @@ def main():
             st.error('Você possui chance alta de contrair câncer de pulmão. Se possível busque um médico')
         else:
             st.info('Você provavelmente não precisa se preocupar, mas caso possua algum sitoma grave e continue suspeitando da possibilidade, busque um médico.')
-
+        
 if __name__ == '__main__':
     main()
