@@ -39,14 +39,13 @@ change_gradient = '''
 def main():
     
     # titulo da pagina web
-    st.set_page_config(page_title="LungHealth", page_icon='👨‍⚕️', layout="centered")
+    st.set_page_config(page_title="LungCancer", page_icon='👨‍⚕️', layout="centered")
 
     # alterar gradiente do streamlit (topo da pagina) para combinar com as cores do dashboard
     st.markdown(change_gradient, unsafe_allow_html=True)
 
     # descrição do app
-    st.markdown('## LungHealth')
-    st.markdown('### Cálculo de probabilidade de câncer pulmonar')
+    st.markdown('## Cálculo de probabilidade de câncer pulmonar')
     st.markdown('Responda esse breve formulário para que possa ser realizado um cálculo da sua probabilidade de câncer pulmonar, **seja sincero** para obter o melhor resultado possível.')
 
     # dados do paciente
