@@ -1,4 +1,4 @@
-site_name: Nome do projeto
+site_name: Lung-Cancer
 plugins:
   - mkdocs-jupyter
   - search
